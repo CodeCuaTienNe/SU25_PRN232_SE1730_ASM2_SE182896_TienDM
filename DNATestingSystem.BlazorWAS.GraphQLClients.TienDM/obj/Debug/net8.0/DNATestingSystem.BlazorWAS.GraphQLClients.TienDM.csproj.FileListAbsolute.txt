@@ -3233,3 +3233,4 @@ D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLCli
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\refint\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.dll
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.pdb
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\ref\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.dll
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.sourcelink.json

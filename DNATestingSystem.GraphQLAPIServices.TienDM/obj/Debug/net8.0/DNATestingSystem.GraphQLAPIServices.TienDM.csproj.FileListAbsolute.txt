@@ -362,3 +362,4 @@ D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.GraphQLAPIServices.T
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.GraphQLAPIServices.TienDM\obj\Debug\net8.0\DNATestingSystem.GraphQLAPIServices.TienDM.pdb
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.GraphQLAPIServices.TienDM\obj\Debug\net8.0\DNATestingSystem.GraphQLAPIServices.TienDM.genruntimeconfig.cache
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.GraphQLAPIServices.TienDM\obj\Debug\net8.0\ref\DNATestingSystem.GraphQLAPIServices.TienDM.dll
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.GraphQLAPIServices.TienDM\obj\Debug\net8.0\DNATestingSystem.GraphQLAPIServices.TienDM.sourcelink.json

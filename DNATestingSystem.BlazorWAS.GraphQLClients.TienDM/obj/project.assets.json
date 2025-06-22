@@ -2568,11 +2568,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2004d\\Downloads\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj",
+      "projectUniqueName": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj",
       "projectName": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM",
-      "projectPath": "C:\\Users\\2004d\\Downloads\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj",
+      "projectPath": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj",
       "packagesPath": "C:\\Users\\2004d\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2004d\\Downloads\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\obj\\",
+      "outputPath": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
