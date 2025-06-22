@@ -127,5 +127,56 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
                 return new PaginationResult<List<AppointmentsTienDmDisplayDto>>();
             }
         }
+        //View status
+        /// <summary>
+        /// Get all appointment statuses for dropdown
+        /// </summary>
+        public async Task<List<AppointmentStatusesTienDm>> GetAllAppointmentStatuses()
+        {
+            try
+            {
+                var result = await _serviceProviders.AppointmentStatusesTienDmService.GetAllAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return new List<AppointmentStatusesTienDm>();
+            }
+        }
+
+        //view useraccount
+        /// <summary>
+        /// Get all users for dropdown
+        /// </summary>
+        public async Task<List<SystemUserAccount>> GetAllUsers()
+        {
+            try
+            {
+                var result = await _serviceProviders.SystemUserAccountService.GetAllAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return new List<SystemUserAccount>();
+            }
+        }
+
+        // view service
+        /// <summary>
+        /// Get all services for dropdown
+        /// </summary>
+        public async Task<List<ServicesNhanVt>> GetAllServices()
+        {
+            try
+            {
+                var result = await _serviceProviders.ServicesNhanVtService.GetAllAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return new List<ServicesNhanVt>();
+            }
+        }
+
     }
 }

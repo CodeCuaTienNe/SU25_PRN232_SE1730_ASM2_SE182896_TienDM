@@ -203,6 +203,76 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             {
                 return new List<AppointmentsTienDm>();
             }
+        }        /// <summary>
+                 /// Get all users for dropdown
+                 /// </summary>
+        public async Task<List<UserOption>> GetUserOptions()
+        {
+            try
+            {
+                var query = @"query AllUsers {
+                    allUsers {
+                        userAccountId
+                        userName
+                        email
+                    }
+                }";
+
+                var response = await _graphQLClient.SendQueryAsync<UserOptionsResponse>(query);
+                return response?.Data?.allUsers ?? new List<UserOption>();
+            }
+            catch (Exception)
+            {
+                return new List<UserOption>();
+            }
+        }
+
+        /// <summary>
+        /// Get all services for dropdown
+        /// </summary>
+        public async Task<List<ServiceOption>> GetServiceOptions()
+        {
+            try
+            {
+                var query = @"query GetServices {
+                    allServices {
+                        servicesNhanVtid
+                        serviceName
+                        price
+                    }
+                }";
+
+                var response = await _graphQLClient.SendQueryAsync<ServiceOptionsResponse>(query);
+                return response?.Data?.allServices ?? new List<ServiceOption>();
+            }
+            catch (Exception)
+            {
+                return new List<ServiceOption>();
+            }
+        }
+
+        /// <summary>
+        /// Get all appointment statuses for dropdown
+        /// </summary>
+        public async Task<List<AppointmentStatusOption>> GetAppointmentStatusOptions()
+        {
+            try
+            {
+                var query = @"query AllAppointmentStatuses {
+                    allAppointmentStatuses {
+                        appointmentStatusesTienDmid
+                        statusName
+                        description
+                    }
+                }";
+
+                var response = await _graphQLClient.SendQueryAsync<AppointmentStatusOptionsResponse>(query);
+                return response?.Data?.allAppointmentStatuses ?? new List<AppointmentStatusOption>();
+            }
+            catch (Exception)
+            {
+                return new List<AppointmentStatusOption>();
+            }
         }
 
         // ...existing code...
@@ -228,9 +298,46 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
     {
         public int updateAppointment { get; set; }
     }
-
     public class DeleteAppointmentResponse
     {
         public bool deleteAppointment { get; set; }
+    }
+
+    // Dropdown option classes
+    public class UserOption
+    {
+        public int UserAccountId { get; set; }
+        public string UserName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+
+    public class ServiceOption
+    {
+        public int ServicesNhanVtid { get; set; }
+        public string ServiceName { get; set; } = string.Empty;
+        public decimal Price { get; set; }
+    }
+
+    public class AppointmentStatusOption
+    {
+        public int AppointmentStatusesTienDmid { get; set; }
+        public string StatusName { get; set; } = string.Empty;
+        public string? Description { get; set; }
+    }
+
+    // Response classes for dropdown options
+    public class UserOptionsResponse
+    {
+        public List<UserOption> allUsers { get; set; } = new();
+    }
+
+    public class ServiceOptionsResponse
+    {
+        public List<ServiceOption> allServices { get; set; } = new();
+    }
+
+    public class AppointmentStatusOptionsResponse
+    {
+        public List<AppointmentStatusOption> allAppointmentStatuses { get; set; } = new();
     }
 }

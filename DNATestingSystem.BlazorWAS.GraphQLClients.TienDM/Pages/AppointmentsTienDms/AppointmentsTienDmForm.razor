@@ -4,6 +4,7 @@
 @using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
+@using static DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient.GraphQLConsumer
 @inject GraphQLConsumer _graphQLConsumer
 @inject NavigationManager _navigationManager
 
@@ -32,20 +33,36 @@ else if (appointmentDto != null)
                 <div class="card-body">
                     <EditForm Model="appointmentDto" OnValidSubmit="HandleSubmit">
                         <DataAnnotationsValidator />
-                        <ValidationSummary class="alert alert-danger" />
-
-                        <div class="row">
+                        <ValidationSummary class="alert alert-danger" />                        <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">User Account ID *</label>
-                                    <InputNumber @bind-Value="appointmentDto.UserAccountId" class="form-control" />
+                                    <label class="form-label">Customer *</label>
+                                    <InputSelect @bind-Value="appointmentDto.UserAccountId" class="form-select">
+                                        <option value="0">-- Select Customer --</option>
+                                        @if (userOptions != null)
+                                        {
+                                            @foreach (var user in userOptions)
+                                            {
+                                                <option value="@user.UserAccountId">@user.UserName (@user.Email)</option>
+                                            }
+                                        }
+                                    </InputSelect>
                                     <ValidationMessage For="@(() => appointmentDto.UserAccountId)" class="text-danger" />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Service ID *</label>
-                                    <InputNumber @bind-Value="appointmentDto.ServicesNhanVtid" class="form-control" />
+                                    <label class="form-label">Service *</label>
+                                    <InputSelect @bind-Value="appointmentDto.ServicesNhanVtid" class="form-select">
+                                        <option value="0">-- Select Service --</option>
+                                        @if (serviceOptions != null)
+                                        {
+                                            @foreach (var service in serviceOptions)
+                                            {
+                                                <option value="@service.ServicesNhanVtid">@service.ServiceName - @service.Price.ToString("C")</option>
+                                            }
+                                        }
+                                    </InputSelect>
                                     <ValidationMessage For="@(() => appointmentDto.ServicesNhanVtid)" class="text-danger" />
                                 </div>
                             </div>
@@ -54,8 +71,17 @@ else if (appointmentDto != null)
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Appointment Status ID *</label>
-                                    <InputNumber @bind-Value="appointmentDto.AppointmentStatusesTienDmid" class="form-control" />
+                                    <label class="form-label">Appointment Status *</label>
+                                    <InputSelect @bind-Value="appointmentDto.AppointmentStatusesTienDmid" class="form-select">
+                                        <option value="0">-- Select Status --</option>
+                                        @if (appointmentStatusOptions != null)
+                                        {
+                                            @foreach (var status in appointmentStatusOptions)
+                                            {
+                                                <option value="@status.AppointmentStatusesTienDmid">@status.StatusName</option>
+                                            }
+                                        }
+                                    </InputSelect>
                                     <ValidationMessage For="@(() => appointmentDto.AppointmentStatusesTienDmid)" class="text-danger" />
                                 </div>
                             </div>
@@ -159,11 +185,40 @@ else if (appointmentDto != null)
     private DateTime appointmentDateHelper = DateTime.Today;
     private string appointmentTimeHelper = "09:00:00";
 
-    private bool IsEditMode => Id.HasValue && Id > 0;
+    // Dropdown options
+    private List<UserOption>? userOptions;
+    private List<ServiceOption>? serviceOptions;
+    private List<AppointmentStatusOption>? appointmentStatusOptions;
 
-    protected override async Task OnInitializedAsync()
+    private bool IsEditMode => Id.HasValue && Id > 0;    protected override async Task OnInitializedAsync()
     {
+        await LoadDropdownData();
         await LoadAppointment();
+    }
+
+    private async Task LoadDropdownData()
+    {
+        try
+        {
+            // Load all dropdown data in parallel for better performance
+            var userTask = _graphQLConsumer.GetUserOptions();
+            var serviceTask = _graphQLConsumer.GetServiceOptions();
+            var statusTask = _graphQLConsumer.GetAppointmentStatusOptions();
+
+            await Task.WhenAll(userTask, serviceTask, statusTask);
+
+            userOptions = await userTask;
+            serviceOptions = await serviceTask;
+            appointmentStatusOptions = await statusTask;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading dropdown data: {ex.Message}");
+            // Initialize empty lists to prevent null reference errors
+            userOptions = new List<UserOption>();
+            serviceOptions = new List<ServiceOption>();
+            appointmentStatusOptions = new List<AppointmentStatusOption>();
+        }
     }
 
     private async Task LoadAppointment()
@@ -262,10 +317,10 @@ else if (appointmentDto != null)
         int result = 0;
 
         try
-        {
-            if (IsEditMode && updateAppointmentDto != null)
+        {            if (IsEditMode && updateAppointmentDto != null && Id.HasValue)
             {
-                // Update existing appointment
+                // Update existing appointment - make sure ID is preserved
+                updateAppointmentDto.AppointmentsTienDmid = Id.Value; // Ensure ID is set correctly
                 updateAppointmentDto.UserAccountId = appointmentDto.UserAccountId;
                 updateAppointmentDto.ServicesNhanVtid = appointmentDto.ServicesNhanVtid;
                 updateAppointmentDto.AppointmentStatusesTienDmid = appointmentDto.AppointmentStatusesTienDmid;
