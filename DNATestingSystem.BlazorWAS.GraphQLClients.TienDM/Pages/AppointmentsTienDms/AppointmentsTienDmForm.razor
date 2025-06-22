@@ -1,0 +1,230 @@
+﻿@page "/appointments/new"
+@page "/appointments/edit/{id:int}"
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Models
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
+@inject GraphQLConsumer _graphQLConsumer
+@inject NavigationManager _navigationManager
+
+<h3>@(IsEditMode ? "Edit Appointment" : "Create New Appointment")</h3>
+
+@if (appointment == null)
+{
+    <div>Loading...</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">@(IsEditMode ? "Edit" : "New") Appointment Details</h5>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="appointment" OnValidSubmit="HandleSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger" />                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Contact Phone *</label>
+                                    <InputText @bind-Value="appointment.ContactPhone" class="form-control" />
+                                    <ValidationMessage For="@(() => appointment.ContactPhone)" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Appointment Date *</label>
+                                    <InputDate @bind-Value="appointmentDateHelper" class="form-control" />
+                                    <ValidationMessage For="@(() => appointment.AppointmentDate)" class="text-danger" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Appointment Time *</label>
+                                    <InputText @bind-Value="appointmentTimeHelper" class="form-control" placeholder="HH:mm" />
+                                    <ValidationMessage For="@(() => appointment.AppointmentTime)" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Total Amount *</label>
+                                    <InputNumber @bind-Value="appointment.TotalAmount" class="form-control" />
+                                    <ValidationMessage For="@(() => appointment.TotalAmount)" class="text-danger" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <InputTextArea @bind-Value="appointment.Address" class="form-control" rows="3" />
+                            <ValidationMessage For="@(() => appointment.Address)" class="text-danger" />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Sampling Method *</label>
+                                    @* need get from BE *@
+                                    <InputSelect @bind-Value="appointment.SamplingMethod" class="form-select">
+                                        <option value="">-- Select Sampling Method --</option>
+                                        <option value="Home Visit">Home Visit</option>
+                                        <option value="Clinic Visit">Clinic Visit</option>
+                                        <option value="Lab Collection">Lab Collection</option>
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => appointment.SamplingMethod)" class="text-danger" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Payment Status</label>
+                                    @* need get from BE *@
+                                    <InputSelect @bind-Value="appointment.IsPaid" class="form-select">
+                                        <option value="">-- Select Status --</option>
+                                        <option value="false">Unpaid</option>
+                                        <option value="true">Paid</option>
+                                    </InputSelect>
+                                    <ValidationMessage For="@(() => appointment.IsPaid)" class="text-danger" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Notes</label>
+                            <InputTextArea @bind-Value="appointment.Notes" class="form-control" rows="4" />
+                            <ValidationMessage For="@(() => appointment.Notes)" class="text-danger" />
+                        </div>
+
+                        <div class="mb-3 d-flex gap-2">
+                            <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+                                @if (isSubmitting)
+                                {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                }
+                                @(IsEditMode ? "Update" : "Create") Appointment
+                            </button>
+                            <button type="button" class="btn btn-secondary" @onclick="Cancel">
+                                Cancel
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private AppointmentsTienDm? appointment;
+    private bool isSubmitting = false;
+    private bool IsEditMode => Id.HasValue && Id.Value > 0;
+
+    // Helper properties for DateOnly and TimeOnly binding
+    private DateTime appointmentDateHelper
+    {
+        get => appointment?.AppointmentDate.ToDateTime(TimeOnly.MinValue) ?? DateTime.Today;
+        set
+        {
+            if (appointment != null)
+            {
+                appointment.AppointmentDate = DateOnly.FromDateTime(value);
+            }
+        }
+    }
+
+    private string appointmentTimeHelper
+    {
+        get => appointment?.AppointmentTime.ToString("HH:mm") ?? "09:00";
+        set
+        {
+            if (appointment != null && TimeOnly.TryParse(value, out var time))
+            {
+                appointment.AppointmentTime = time;
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsEditMode)
+        {
+            try
+            {
+                appointment = await _graphQLConsumer.GetAppointmentById(Id.Value);
+                if (appointment == null)
+                {
+                    appointment = CreateNewAppointment();
+                }
+            }
+            catch (Exception)
+            {
+                appointment = CreateNewAppointment();
+            }
+        }
+        else
+        {
+            appointment = CreateNewAppointment();
+        }
+    }
+
+    private AppointmentsTienDm CreateNewAppointment()
+    {
+        return new AppointmentsTienDm
+        {
+            AppointmentDate = DateOnly.FromDateTime(DateTime.Today),
+            AppointmentTime = TimeOnly.FromDateTime(DateTime.Now),
+            IsPaid = false,
+            TotalAmount = 0,
+            ContactPhone = "",
+            SamplingMethod = "",
+            UserAccountId = 1, // Default value - should be set based on logged-in user
+            ServicesNhanVtid = 1, // Default value - should be set from dropdown
+            AppointmentStatusesTienDmid = 1 // Default value - should be set from dropdown
+        };
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (appointment == null) return;
+
+        isSubmitting = true;
+        int result = 0;
+
+        try
+        {
+            if (IsEditMode)
+            {
+                appointment.ModifiedDate = DateTime.Now;
+                result = await _graphQLConsumer.UpdateAppointment(appointment);
+            }
+            else
+            {
+                appointment.CreatedDate = DateTime.Now;
+                appointment.ModifiedDate = DateTime.Now;
+
+                result = await _graphQLConsumer.CreateAppointment(appointment);
+            }
+
+            if (result > 0)
+            {
+                _navigationManager.NavigateTo("/appointments", false);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle error - could add toast notification here
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private void Cancel()
+    {
+        _navigationManager.NavigateTo("/appointments");
+    }
+}
