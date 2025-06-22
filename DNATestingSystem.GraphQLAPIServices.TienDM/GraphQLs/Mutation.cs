@@ -1,4 +1,5 @@
 using DNATestingSystem.Repository.TienDM.Models;
+using DNATestingSystem.Repository.TienDM.ModelExtensions;
 using DNATestingSystem.Services.TienDM;
 
 namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
@@ -11,18 +12,17 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
         {
             _serviceProviders = serviceProviders;
         }
-
-        public async Task<int> CreateAppointment(AppointmentsTienDm appointment)
+        public async Task<int> CreateAppointment(CreateAppointmentsTienDmDto appointmentDto)
         {
             try
             {
-                if (appointment == null)
+                if (appointmentDto == null)
                 {
                     return 0;
                 }
 
-                appointment.CreatedDate = DateTime.Now;
-                appointment.ModifiedDate = DateTime.Now;
+                // Convert DTO to Entity using mapper
+                var appointment = appointmentDto.ToEntity();
 
                 var result = await _serviceProviders.AppointmentsTienDmService.CreateAsync(appointment);
                 return result;
@@ -33,18 +33,26 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
             }
         }
 
-        public async Task<int> UpdateAppointment(AppointmentsTienDm appointment)
+        public async Task<int> UpdateAppointment(UpdateAppointmentsTienDmDto appointmentDto)
         {
             try
             {
-                if (appointment == null)
+                if (appointmentDto == null)
                 {
                     return 0;
                 }
 
-                appointment.ModifiedDate = DateTime.Now;
+                // Get existing appointment
+                var existingAppointment = await _serviceProviders.AppointmentsTienDmService.GetByIdAsync(appointmentDto.AppointmentsTienDmid);
+                if (existingAppointment == null || existingAppointment.AppointmentsTienDmid == 0)
+                {
+                    return 0;
+                }
 
-                var result = await _serviceProviders.AppointmentsTienDmService.UpdateAsync(appointment);
+                // Update entity with DTO data using mapper
+                existingAppointment.UpdateFromDto(appointmentDto);
+
+                var result = await _serviceProviders.AppointmentsTienDmService.UpdateAsync(existingAppointment);
                 return result;
             }
             catch (Exception)

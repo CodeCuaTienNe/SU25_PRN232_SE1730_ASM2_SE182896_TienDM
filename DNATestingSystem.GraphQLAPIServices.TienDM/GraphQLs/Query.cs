@@ -68,5 +68,64 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
                 return new AppointmentsTienDm();
             }
         }
+
+        /// <summary>
+        /// Get all appointments as display DTOs - optimized for GraphQL queries
+        /// </summary>
+        public async Task<List<AppointmentsTienDmDisplayDto>> GetAllAppointmentsDisplay()
+        {
+            try
+            {
+                var result = await _serviceProviders.AppointmentsTienDmService.GetAllAsync();
+                return result.ToDisplayDtos();
+            }
+            catch (Exception)
+            {
+                return new List<AppointmentsTienDmDisplayDto>();
+            }
+        }
+
+        /// <summary>
+        /// Get appointment by ID as display DTO
+        /// </summary>
+        public async Task<AppointmentsTienDmDisplayDto> GetAppointmentDisplayById(int id)
+        {
+            try
+            {
+                var result = await _serviceProviders.AppointmentsTienDmService.GetByIdAsync(id);
+                return result?.ToDisplayDto() ?? new AppointmentsTienDmDisplayDto();
+            }
+            catch (Exception)
+            {
+                return new AppointmentsTienDmDisplayDto();
+            }
+        }
+
+        /// <summary>
+        /// Search appointments with pagination - returns display DTOs
+        /// </summary>
+        public async Task<PaginationResult<List<AppointmentsTienDmDisplayDto>>> SearchAppointmentsDisplay(SearchAppointmentsTienDm searchRequest)
+        {
+            try
+            {
+                var result = await _serviceProviders.AppointmentsTienDmService.SearchAsync(searchRequest);
+                if (result?.Items != null)
+                {
+                    return new PaginationResult<List<AppointmentsTienDmDisplayDto>>
+                    {
+                        TotalItems = result.TotalItems,
+                        TotalPages = result.TotalPages,
+                        CurrentPages = result.CurrentPages,
+                        PageSize = result.PageSize,
+                        Items = result.Items.ToDisplayDtos()
+                    };
+                }
+                return new PaginationResult<List<AppointmentsTienDmDisplayDto>>();
+            }
+            catch (Exception)
+            {
+                return new PaginationResult<List<AppointmentsTienDmDisplayDto>>();
+            }
+        }
     }
 }

@@ -9,96 +9,105 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
     {
         private readonly IGraphQLClient _graphQLClient;
 
-        public GraphQLConsumer(IGraphQLClient graphQLClient) => _graphQLClient = graphQLClient;
-
-        public async Task<List<AppointmentsTienDm>> GetAllAppointments()
-        {
-            try
-            {                // Get Query String from GraphQL API
-                var query = @"query appointment {
-                    allAppointments {
-                        address
-                        appointmentDate
-                        appointmentStatusesTienDmid
-                        appointmentsTienDmid
-                        appointmentTime
-                        contactPhone
-                        createdDate
-                        isPaid
-                        modifiedDate
-                        notes
-                        samplingMethod
-                        servicesNhanVtid
-                        totalAmount
-                        userAccountId
-                    }
-                }"; var response = await _graphQLClient.SendQueryAsync<AppointmentsTienDmsGraphQLResponses>(query);
-                var result = response?.Data?.allAppointments;
-
-                return result ?? new List<AppointmentsTienDm>();
-            }
-            catch (Exception) { }
-
-            return new List<AppointmentsTienDm>();
-        }
-
-        public async Task<AppointmentsTienDm> GetAppointmentById(int id)
+        public GraphQLConsumer(IGraphQLClient graphQLClient) => _graphQLClient = graphQLClient;        /// <summary>
+                                                                                                       /// Get all appointments using display DTOs - optimized for UI display
+                                                                                                       /// </summary>
+        public async Task<List<AppointmentsTienDmDisplayDto>> GetAllAppointmentsDisplay()
         {
             try
             {
-                #region GraphQL Request
+                var query = @"query appointmentsDisplay {
+                    allAppointmentsDisplay {
+                        appointmentsTienDmid
+                        appointmentDate
+                        appointmentTime
+                        contactPhone
+                        address
+                        totalAmount
+                        isPaid
+                        samplingMethod
+                        notes
+                        statusName
+                        serviceName
+                        userName
+                        userEmail
+                        createdDate
+                        modifiedDate
+                    }
+                }";
 
+                var response = await _graphQLClient.SendQueryAsync<AppointmentsTienDmDisplayDtosGraphQLResponse>(query);
+                var result = response?.Data?.allAppointmentsDisplay;
+
+                return result ?? new List<AppointmentsTienDmDisplayDto>();
+            }
+            catch (Exception)
+            {
+                return new List<AppointmentsTienDmDisplayDto>();
+            }
+        }
+
+        /// <summary>
+        /// Get appointment by ID using display DTO
+        /// </summary>
+        public async Task<AppointmentsTienDmDisplayDto> GetAppointmentDisplayById(int id)
+        {
+            try
+            {
                 var graphQLRequest = new GraphQLRequest
                 {
-                    Query = @"query GetAppointmentById($id: Int!) {
-                        appointmentById(id: $id) {
-                            address
-                            appointmentDate
-                            appointmentStatusesTienDmid
+                    Query = @"query GetAppointmentDisplayById($id: Int!) {
+                        appointmentDisplayById(id: $id) {
                             appointmentsTienDmid
-                            appointmentTime
-                            contactPhone
-                            createdDate
-                            isPaid
-                            modifiedDate
-                            notes
-                            samplingMethod
-                            servicesNhanVtid
-                            totalAmount
                             userAccountId
+                            servicesNhanVtid
+                            appointmentStatusesTienDmid
+                            appointmentDate
+                            appointmentTime
+                            samplingMethod
+                            address
+                            contactPhone
+                            notes
+                            totalAmount
+                            isPaid
+                            statusName
+                            serviceName
+                            userName
+                            userEmail
+                            createdDate
+                            modifiedDate
                         }
                     }",
                     Variables = new { id = id }
                 };
-                #endregion
 
-                var response = await _graphQLClient.SendQueryAsync<AppointmentsTienDmsGraphQLResponse>(graphQLRequest);
-                var result = response?.Data?.appointmentsTienDm;
+                var response = await _graphQLClient.SendQueryAsync<AppointmentsTienDmDisplayDtoGraphQLResponse>(graphQLRequest);
+                var result = response?.Data?.appointmentDisplayById;
 
-                return result ?? new AppointmentsTienDm();
+                return result ?? new AppointmentsTienDmDisplayDto();
             }
             catch (Exception)
             {
-                return new AppointmentsTienDm();
+                return new AppointmentsTienDmDisplayDto();
             }
         }
 
-        public async Task<int> CreateAppointment(AppointmentsTienDm appointment)
+        /// <summary>
+        /// Create appointment using DTO - simplified input
+        /// </summary>
+        public async Task<int> CreateAppointmentDto(CreateAppointmentsTienDmDto appointmentDto)
         {
             try
             {
-                #region GraphQL Mutation
-
                 var graphQLRequest = new GraphQLRequest
                 {
-                    Query = @"mutation CreateAppointment($appointment: AppointmentsTienDmInput!) {
-                        createAppointment(appointment: $appointment)
+                    Query = @"mutation CreateAppointment($appointmentDto: CreateAppointmentsTienDmDtoInput!) {
+                        createAppointment(appointmentDto: $appointmentDto)
                     }",
-                    Variables = new { appointment = appointment }
+                    Variables = new { appointmentDto = appointmentDto }
                 };
-                #endregion
 
-                var response = await _graphQLClient.SendMutationAsync<CreateAppointmentResponse>(graphQLRequest);
+                var response = await _graphQLClient.SendMutationAsync<CreateAppointmentDtoResponse>(graphQLRequest);
                 var result = response?.Data?.createAppointment ?? 0;
 
                 return result;
@@ -109,22 +118,22 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        public async Task<int> UpdateAppointment(AppointmentsTienDm appointment)
+        /// <summary>
+        /// Update appointment using DTO - simplified input
+        /// </summary>
+        public async Task<int> UpdateAppointmentDto(UpdateAppointmentsTienDmDto appointmentDto)
         {
             try
             {
-                #region GraphQL Mutation
-
                 var graphQLRequest = new GraphQLRequest
                 {
-                    Query = @"mutation UpdateAppointment($appointment: AppointmentsTienDmInput!) {
-                        updateAppointment(appointment: $appointment)
+                    Query = @"mutation UpdateAppointment($appointmentDto: UpdateAppointmentsTienDmDtoInput!) {
+                        updateAppointment(appointmentDto: $appointmentDto)
                     }",
-                    Variables = new { appointment = appointment }
+                    Variables = new { appointmentDto = appointmentDto }
                 };
-                #endregion
 
-                var response = await _graphQLClient.SendMutationAsync<UpdateAppointmentResponse>(graphQLRequest);
+                var response = await _graphQLClient.SendMutationAsync<UpdateAppointmentDtoResponse>(graphQLRequest);
                 var result = response?.Data?.updateAppointment ?? 0;
 
                 return result;
@@ -134,5 +143,94 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Delete appointment by ID
+        /// </summary>
+        public async Task<bool> DeleteAppointment(int id)
+        {
+            try
+            {
+                var graphQLRequest = new GraphQLRequest
+                {
+                    Query = @"mutation DeleteAppointment($id: Int!) {
+                        deleteAppointment(id: $id)
+                    }",
+                    Variables = new { id = id }
+                };
+
+                var response = await _graphQLClient.SendMutationAsync<DeleteAppointmentResponse>(graphQLRequest);
+                var result = response?.Data?.deleteAppointment ?? false;
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Get all appointments (original method for backward compatibility)
+        /// </summary>
+        public async Task<List<AppointmentsTienDm>> GetAllAppointments()
+        {
+            try
+            {
+                var displayAppointments = await GetAllAppointmentsDisplay();
+                // Convert display DTOs to regular models
+                var appointments = displayAppointments.Select(d => new AppointmentsTienDm
+                {
+                    AppointmentsTienDmid = d.AppointmentsTienDmid,
+                    UserAccountId = d.UserAccountId,
+                    ServicesNhanVtid = d.ServicesNhanVtid,
+                    AppointmentStatusesTienDmid = d.AppointmentStatusesTienDmid,
+                    AppointmentDate = d.AppointmentDate,
+                    AppointmentTime = d.AppointmentTime,
+                    SamplingMethod = d.SamplingMethod,
+                    Address = d.Address,
+                    ContactPhone = d.ContactPhone,
+                    Notes = d.Notes,
+                    TotalAmount = d.TotalAmount,
+                    IsPaid = d.IsPaid,
+                    CreatedDate = d.CreatedDate,
+                    ModifiedDate = d.ModifiedDate
+                }).ToList();
+
+                return appointments;
+            }
+            catch (Exception)
+            {
+                return new List<AppointmentsTienDm>();
+            }
+        }
+
+        // ...existing code...
+    }
+
+    // Response classes for GraphQL
+    public class AppointmentsTienDmDisplayDtosGraphQLResponse
+    {
+        public List<AppointmentsTienDmDisplayDto> allAppointmentsDisplay { get; set; } = new();
+    }
+
+    public class AppointmentsTienDmDisplayDtoGraphQLResponse
+    {
+        public AppointmentsTienDmDisplayDto appointmentDisplayById { get; set; } = new();
+    }
+
+    public class CreateAppointmentDtoResponse
+    {
+        public int createAppointment { get; set; }
+    }
+
+    public class UpdateAppointmentDtoResponse
+    {
+        public int updateAppointment { get; set; }
+    }
+
+    public class DeleteAppointmentResponse
+    {
+        public bool deleteAppointment { get; set; }
     }
 }

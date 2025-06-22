@@ -1,4 +1,4 @@
--- Get All Appointment:
+-- Get All Appointments (Original with navigation properties):
 query {
   allAppointments {
     appointmentsTienDmid
@@ -21,5 +21,95 @@ query {
       userName
       email
     }
+  }
+}
+
+-- Get All Appointments (Optimized with Display DTO - RECOMMENDED):
+query {
+  allAppointmentsDisplay {
+    appointmentsTienDmid
+    appointmentDate
+    appointmentTime
+    contactPhone
+    address
+    totalAmount
+    isPaid
+    samplingMethod
+    notes
+    statusName
+    serviceName
+    userName
+    userEmail
+    createdDate
+    modifiedDate
+  }
+}
+
+-- Get Appointment by ID (Display DTO):
+query GetAppointmentDisplayById($id: Int!) {
+  appointmentDisplayById(id: $id) {
+    appointmentsTienDmid
+    userAccountId
+    servicesNhanVtid
+    appointmentStatusesTienDmid
+    appointmentDate
+    appointmentTime
+    samplingMethod
+    address
+    contactPhone
+    notes
+    totalAmount
+    isPaid
+    statusName
+    serviceName
+    userName
+    userEmail
+    createdDate
+    modifiedDate
+  }
+}
+
+-- Create Appointment (Using DTO - SIMPLIFIED):
+mutation CreateAppointment($appointmentDto: CreateAppointmentsTienDmDtoInput!) {
+  createAppointment(appointmentDto: $appointmentDto)
+}
+
+-- Example variables for Create:
+{
+  "appointmentDto": {
+    "userAccountId": 1,
+    "servicesNhanVtid": 1,
+    "appointmentStatusesTienDmid": 1,
+    "appointmentDate": "2025-06-25",
+    "appointmentTime": "10:30:00",
+    "samplingMethod": "Blood Test",
+    "address": "123 Main St, City",
+    "contactPhone": "0123456789",
+    "notes": "First time appointment",
+    "totalAmount": 500000.00,
+    "isPaid": false
+  }
+}
+
+-- Update Appointment (Using DTO):
+mutation UpdateAppointment($appointmentDto: UpdateAppointmentsTienDmDtoInput!) {
+  updateAppointment(appointmentDto: $appointmentDto)
+}
+
+-- Example variables for Update:
+{
+  "appointmentDto": {
+    "appointmentsTienDmid": 1,
+    "userAccountId": 1,
+    "servicesNhanVtid": 1,
+    "appointmentStatusesTienDmid": 2,
+    "appointmentDate": "2025-06-26",
+    "appointmentTime": "14:30:00",
+    "samplingMethod": "Saliva Test",
+    "address": "456 New Address",
+    "contactPhone": "0987654321",
+    "notes": "Updated appointment details",
+    "totalAmount": 750000.00,
+    "isPaid": true
   }
 }

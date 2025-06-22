@@ -1,0 +1,19 @@
+--CREATE APPOINTMENT:
+mutation CreateAppointment {
+    createAppointment(
+        appointmentDto: {
+            userAccountId: 1
+            servicesNhanVtid: 1
+            appointmentStatusesTienDmid: 1
+            appointmentDate: "2024-01-25"
+            samplingMethod: "Clinic Visit"
+            address: "123 Main St, Cityyy"
+            contactPhone: "0909090944"
+            notes: "sasasas"
+            totalAmount: 650.00
+            isPaid: true
+            appointmentTime: "14:30:00"
+        }
+    )
+}
+-------------------------------------------

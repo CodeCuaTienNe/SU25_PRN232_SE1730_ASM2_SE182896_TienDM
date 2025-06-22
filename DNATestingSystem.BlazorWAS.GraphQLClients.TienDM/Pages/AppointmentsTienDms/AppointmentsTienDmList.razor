@@ -3,39 +3,69 @@
 @using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Models
 @using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
 @inject GraphQLConsumer _graphQLConsumer
+@inject IJSRuntime JSRuntime
 
 <h3>Appointments List</h3>
 
-@if (appointmentsTienDms == null)
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h4 class="text-primary">Total Appointments: @(appointmentsTienDms?.Count ?? 0)</h4>
+    </div>
+    <div>
+        <a href="/appointments/new" class="btn btn-success">
+            <i class="fas fa-plus"></i> Create New Appointment
+        </a>
+    </div>
+</div>
+
+@if (isLoading)
 {
-    <div>Page loading...</div>    
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Loading appointments...</p>
+    </div>
+}
+else if (appointmentsTienDms == null || !appointmentsTienDms.Any())
+{
+    <div class="alert alert-info">
+        <h5>No appointments found</h5>
+        <p>There are no appointments to display. <a href="/appointments/new">Create the first appointment</a>.</p>
+    </div>
 }
 else
 {
-    <table class="table table-striped table-bordered table-hover">
-        <thead class="bg-primary text-white">
+    <table class="table table-striped table-bordered table-hover">        <thead class="bg-primary text-white">
             <tr>
                 <th>ID</th>
+                <th>User</th>
+                <th>Service</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Contact Phone</th>
                 <th>Address</th>
                 <th>Total Amount</th>
                 <th>Payment Status</th>
-                <th>Sampling Method</th>
-                <th>Notes</th>
-                <th></th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody class="table-primary">
-            @foreach (var appointment in appointmentsTienDms)
+        <tbody class="table-primary">            @foreach (var appointment in appointmentsTienDms)
             {
                 <tr>
                     <td class="text-center fw-bold">@appointment.AppointmentsTienDmid</td>
+                    <td>
+                        <div class="text-primary fw-bold">@appointment.UserName</div>
+                        <small class="text-muted">@appointment.UserEmail</small>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-info">@appointment.ServiceName</span>
+                    </td>
                     <td>@appointment.AppointmentDate.ToString("dd/MM/yyyy")</td>
-                    <td class="text-center">@appointment.AppointmentTime</td>
+                    <td class="text-center">@appointment.AppointmentTime.ToString("HH:mm")</td>
                     <td class="text-center fw-bold text-success">@appointment.ContactPhone</td>
-                    <td>@appointment.Address</td>
+                    <td>@(appointment.Address ?? "N/A")</td>
                     <td class="text-end fw-bold text-danger">@appointment.TotalAmount.ToString("#,###")</td>
                     <td class="text-center">
                         @if (appointment.IsPaid == true)
@@ -47,12 +77,19 @@ else
                             <span class="badge bg-warning">Unpaid</span>
                         }
                     </td>
-                    <td class="text-center fw-bold text-primary">@appointment.SamplingMethod</td>
-                    <td>@appointment.Notes</td>
-                    <td>
+                    <td class="text-center">
+                        <span class="badge bg-secondary">@appointment.StatusName</span>
+                    </td><td>
                         <div class="btn-group" role="group">
-                            <a href="/appointments/detail/@appointment.AppointmentsTienDmid" class="btn btn-sm btn-primary">Detail</a>
-                            <a href="/appointments/edit/@appointment.AppointmentsTienDmid" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="/appointments/detail/@appointment.AppointmentsTienDmid" class="btn btn-sm btn-primary">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>
+                            <a href="/appointments/edit/@appointment.AppointmentsTienDmid" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <button class="btn btn-sm btn-danger" @onclick="() => DeleteAppointment(appointment.AppointmentsTienDmid)">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -62,18 +99,58 @@ else
 }
 
 @code {
-    private List<AppointmentsTienDm>? appointmentsTienDms;
+    private List<AppointmentsTienDmDisplayDto>? appointmentsTienDms;
+    private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(500);
+        await LoadAppointments();
+    }
 
+    private async Task LoadAppointments()
+    {
+        isLoading = true;
         try
         {
-            appointmentsTienDms = await _graphQLConsumer.GetAllAppointments();
+            appointmentsTienDms = await _graphQLConsumer.GetAllAppointmentsDisplay();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            // Log error or show message
+            Console.WriteLine($"Error loading appointments: {ex.Message}");
         }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task DeleteAppointment(int id)
+    {
+        if (await ConfirmDelete())
+        {
+            try
+            {
+                var success = await _graphQLConsumer.DeleteAppointment(id);
+                if (success)
+                {
+                    await LoadAppointments(); // Refresh the list
+                }
+                else
+                {
+                    // Show error message
+                    Console.WriteLine("Failed to delete appointment");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Show error message
+                Console.WriteLine($"Error deleting appointment: {ex.Message}");
+            }
+        }
+    }    private async Task<bool> ConfirmDelete()
+    {
+        return await JSRuntime.InvokeAsync<bool>("confirm", 
+            "Are you sure you want to delete this appointment? This action cannot be undone.");
     }
 }

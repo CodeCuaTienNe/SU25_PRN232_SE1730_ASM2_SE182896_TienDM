@@ -1,5 +1,260 @@
-﻿<h3>AppointmentsTienDmDetail</h3>
+﻿@page "/appointments/detail/{id:int}"
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Models
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
+@inject GraphQLConsumer _graphQLConsumer
+@inject NavigationManager _navigationManager
+@inject IJSRuntime JSRuntime
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Appointment Details</h3>
+    <div>
+        <a href="/appointments" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>
+
+@if (isLoading)
+{
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Loading appointment details...</p>
+    </div>
+}
+else if (appointment == null)
+{
+    <div class="alert alert-warning">
+        <h5>Appointment Not Found</h5>
+        <p>The requested appointment could not be found.</p>
+        <a href="/appointments" class="btn btn-primary">Return to Appointments List</a>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-calendar-alt"></i>
+                        Appointment #@appointment.AppointmentsTienDmid
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th class="text-muted">Appointment ID:</th>
+                                    <td class="fw-bold">#@appointment.AppointmentsTienDmid</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Date:</th>
+                                    <td class="fw-bold text-primary">@appointment.AppointmentDate.ToString("dddd, MMMM dd, yyyy")</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Time:</th>
+                                    <td class="fw-bold text-success">@appointment.AppointmentTime.ToString("HH:mm")</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Status:</th>
+                                    <td>
+                                        <span class="badge bg-secondary">@appointment.StatusName</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Payment Status:</th>
+                                    <td>
+                                        @if (appointment.IsPaid == true)
+                                        {
+                                            <span class="badge bg-success">Paid</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning">Unpaid</span>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th class="text-muted">Customer:</th>
+                                    <td>
+                                        <div class="fw-bold text-primary">@appointment.UserName</div>
+                                        <small class="text-muted">@appointment.UserEmail</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Service:</th>
+                                    <td>
+                                        <span class="badge bg-info">@appointment.ServiceName</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Contact Phone:</th>
+                                    <td class="fw-bold text-success">@appointment.ContactPhone</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Total Amount:</th>
+                                    <td class="fw-bold text-danger">@appointment.TotalAmount.ToString("C")</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted">Sampling Method:</th>
+                                    <td class="fw-bold">@appointment.SamplingMethod</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(appointment.Address))
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-muted">Address:</h6>
+                                <p class="fw-bold">@appointment.Address</p>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(appointment.Notes))
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="text-muted">Notes:</h6>
+                                <p>@appointment.Notes</p>
+                            </div>
+                        </div>
+                    }
+
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <strong>Created:</strong> @(appointment.CreatedDate?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <strong>Modified:</strong> @(appointment.ModifiedDate?.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex gap-2">
+                        <a href="/appointments/edit/@appointment.AppointmentsTienDmid" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Edit Appointment
+                        </a>
+                        <button class="btn btn-danger" @onclick="DeleteAppointment">
+                            <i class="fas fa-trash"></i> Delete Appointment
+                        </button>
+                        <a href="/appointments" class="btn btn-secondary">
+                            <i class="fas fa-list"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-info-circle"></i>
+                        Quick Info
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="text-center p-3 bg-light rounded">
+                                <h5 class="text-primary mb-1">@appointment.TotalAmount.ToString("C")</h5>
+                                <small class="text-muted">Total Amount</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h6 class="text-success mb-1">@appointment.AppointmentDate.ToString("MMM dd")</h6>
+                                <small class="text-muted">Date</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-center p-2 bg-light rounded">
+                                <h6 class="text-warning mb-1">@appointment.AppointmentTime.ToString("HH:mm")</h6>
+                                <small class="text-muted">Time</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
+    [Parameter] public int Id { get; set; }
 
+    private AppointmentsTienDmDisplayDto? appointment;
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAppointment();
+    }
+
+    private async Task LoadAppointment()
+    {
+        isLoading = true;
+        try
+        {
+            appointment = await _graphQLConsumer.GetAppointmentDisplayById(Id);
+            if (appointment.AppointmentsTienDmid == 0)
+            {
+                appointment = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading appointment: {ex.Message}");
+            appointment = null;
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task DeleteAppointment()
+    {
+        if (appointment == null) return;
+
+        var confirmed = await JSRuntime.InvokeAsync<bool>("confirm", 
+            $"Are you sure you want to delete appointment #{appointment.AppointmentsTienDmid}? This action cannot be undone.");
+
+        if (confirmed)
+        {
+            try
+            {
+                var success = await _graphQLConsumer.DeleteAppointment(appointment.AppointmentsTienDmid);
+                if (success)
+                {
+                    _navigationManager.NavigateTo("/appointments");
+                }
+                else
+                {
+                    await JSRuntime.InvokeAsync<object>("alert", "Failed to delete appointment. Please try again.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting appointment: {ex.Message}");
+                await JSRuntime.InvokeAsync<object>("alert", "An error occurred while deleting the appointment.");
+            }
+        }
+    }
 }

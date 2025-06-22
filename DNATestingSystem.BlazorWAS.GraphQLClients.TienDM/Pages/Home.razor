@@ -1,7 +1,52 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>DNA Testing System</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+                <h1 class="display-4">DNA Testing System</h1>
+                <p class="lead">Manage your DNA testing appointments efficiently with our comprehensive system.</p>
+                <hr class="my-4" />
+                <p class="mb-4">Get started by managing appointments, viewing test results, and tracking your DNA testing journey.</p>
+                <a class="btn btn-light btn-lg" href="/appointments" role="button">
+                    <i class="fas fa-calendar-alt"></i> Manage Appointments
+                </a>
+            </div>
+        </div>
+    </div>
 
-Welcome to your new app.
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-calendar-plus fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Schedule Appointment</h5>
+                    <p class="card-text">Book a new DNA testing appointment with ease.</p>
+                    <a href="/appointments/new" class="btn btn-success">Schedule Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-list-alt fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">View Appointments</h5>
+                    <p class="card-text">Check all your existing appointments and their status.</p>
+                    <a href="/appointments" class="btn btn-primary">View All</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-dna fa-3x text-info mb-3"></i>
+                    <h5 class="card-title">DNA Test Results</h5>
+                    <p class="card-text">Access your DNA test results and reports.</p>
+                    <a href="#" class="btn btn-info">View Results</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

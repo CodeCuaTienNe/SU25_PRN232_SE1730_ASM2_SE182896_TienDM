@@ -1,0 +1,377 @@
+@page "/appointments/new"
+@page "/appointments/edit/{id:int}"
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Models
+@using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+@inject GraphQLConsumer _graphQLConsumer
+@inject NavigationManager _navigationManager
+
+<h3>@(IsEditMode ? "Edit Appointment" : "Create New Appointment")</h3>
+
+@if (isLoading)
+{
+    <div class="text-center">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Loading appointment...</p>
+    </div>
+}
+else if ((IsEditMode && updateAppointment == null) || (!IsEditMode && createAppointment == null))
+{
+    <div class="alert alert-danger">
+        <h5>Error</h5>
+        <p>Unable to load appointment data. <a href="/appointments">Return to appointments list</a>.</p>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">@(IsEditMode ? "Edit" : "New") Appointment Details</h5>
+                </div>
+                <div class="card-body">
+                    @if (IsEditMode && updateAppointment != null)
+                    {
+                        <EditForm Model="updateAppointment" OnValidSubmit="HandleSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="text-danger" />
+                            
+                            @{await RenderFormFields(updateAppointment, null);}
+                            
+                            <div class="mb-3 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary" disabled="@isSubmitting">
+                                    @if (isSubmitting)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    }
+                                    <i class="fas fa-save"></i> Update Appointment
+                                </button>
+                                <button type="button" class="btn btn-secondary" @onclick="Cancel">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </EditForm>
+                    }
+                    else if (!IsEditMode && createAppointment != null)
+                    {
+                        <EditForm Model="createAppointment" OnValidSubmit="HandleSubmit">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary class="text-danger" />
+                            
+                            @{await RenderFormFields(null, createAppointment);}
+                            
+                            <div class="mb-3 d-flex gap-2">
+                                <button type="submit" class="btn btn-success" disabled="@isSubmitting">
+                                    @if (isSubmitting)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    }
+                                    <i class="fas fa-plus"></i> Create Appointment
+                                </button>
+                                <button type="button" class="btn btn-secondary" @onclick="Cancel">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </EditForm>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger mt-3">
+            <strong>Error:</strong> @errorMessage
+        </div>
+    }
+}
+
+@code {
+    [Parameter] public int? Id { get; set; }
+
+    private CreateAppointmentsTienDmDto? createAppointment;
+    private UpdateAppointmentsTienDmDto? updateAppointment;
+    private bool isSubmitting = false;
+    private bool isLoading = true;
+    private string? errorMessage;
+    private string appointmentTimeHelper = "";
+
+    private bool IsEditMode => Id.HasValue && Id.Value > 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (IsEditMode)
+            {
+                await LoadForEdit();
+            }
+            else
+            {
+                CreateNewAppointment();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error initializing form: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task LoadForEdit()
+    {
+        try
+        {
+            var displayAppointment = await _graphQLConsumer.GetAppointmentDisplayById(Id!.Value);
+            if (displayAppointment != null && displayAppointment.AppointmentsTienDmid > 0)
+            {
+                updateAppointment = new UpdateAppointmentsTienDmDto
+                {
+                    AppointmentsTienDmid = displayAppointment.AppointmentsTienDmid,
+                    UserAccountId = displayAppointment.UserAccountId,
+                    ServicesNhanVtid = displayAppointment.ServicesNhanVtid,
+                    AppointmentStatusesTienDmid = displayAppointment.AppointmentStatusesTienDmid,
+                    AppointmentDate = displayAppointment.AppointmentDate,
+                    AppointmentTime = displayAppointment.AppointmentTime,
+                    SamplingMethod = displayAppointment.SamplingMethod,
+                    Address = displayAppointment.Address,
+                    ContactPhone = displayAppointment.ContactPhone,
+                    Notes = displayAppointment.Notes,
+                    TotalAmount = displayAppointment.TotalAmount,
+                    IsPaid = displayAppointment.IsPaid
+                };
+                appointmentTimeHelper = displayAppointment.AppointmentTime.ToString("HH:mm");
+            }
+            else
+            {
+                errorMessage = "Appointment not found";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading appointment: {ex.Message}";
+        }
+    }
+
+    private void CreateNewAppointment()
+    {
+        createAppointment = new CreateAppointmentsTienDmDto
+        {
+            AppointmentDate = DateOnly.FromDateTime(DateTime.Today.AddDays(1)),
+            AppointmentTime = TimeOnly.FromTimeSpan(TimeSpan.FromHours(9)), // 9:00 AM
+            IsPaid = false,
+            TotalAmount = 0,
+            ContactPhone = "",
+            SamplingMethod = "Clinic Visit",
+            Address = "",
+            Notes = "",
+            UserAccountId = 1, // Default - should be from user session  
+            ServicesNhanVtid = 1, // Default - should be from dropdown
+            AppointmentStatusesTienDmid = 1 // Default - Scheduled
+        };
+        appointmentTimeHelper = "09:00";
+    }
+
+    private async Task RenderFormFields(UpdateAppointmentsTienDmDto? updateDto, CreateAppointmentsTienDmDto? createDto)
+    {
+        // This is a workaround for shared form fields
+        var isUpdate = updateDto != null;
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Contact Phone *</label>
+                    @if (isUpdate)
+                    {
+                        <InputText @bind-Value="updateDto!.ContactPhone" class="form-control" />
+                        <ValidationMessage For="@(() => updateDto!.ContactPhone)" class="text-danger" />
+                    }
+                    else
+                    {
+                        <InputText @bind-Value="createDto!.ContactPhone" class="form-control" />
+                        <ValidationMessage For="@(() => createDto!.ContactPhone)" class="text-danger" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Appointment Date *</label>
+                    @if (isUpdate)
+                    {
+                        <InputDate @bind-Value="updateDto!.AppointmentDate" class="form-control" />
+                        <ValidationMessage For="@(() => updateDto!.AppointmentDate)" class="text-danger" />
+                    }
+                    else
+                    {
+                        <InputDate @bind-Value="createDto!.AppointmentDate" class="form-control" />
+                        <ValidationMessage For="@(() => createDto!.AppointmentDate)" class="text-danger" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Appointment Time *</label>
+                    <InputText @bind-Value="appointmentTimeHelper" class="form-control" placeholder="HH:mm (e.g., 14:30)" />
+                    <small class="form-text text-muted">Format: HH:mm (24-hour format)</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Total Amount *</label>
+                    @if (isUpdate)
+                    {
+                        <InputNumber @bind-Value="updateDto!.TotalAmount" class="form-control" />
+                        <ValidationMessage For="@(() => updateDto!.TotalAmount)" class="text-danger" />
+                    }
+                    else
+                    {
+                        <InputNumber @bind-Value="createDto!.TotalAmount" class="form-control" />
+                        <ValidationMessage For="@(() => createDto!.TotalAmount)" class="text-danger" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            @if (isUpdate)
+            {
+                <InputTextArea @bind-Value="updateDto!.Address" class="form-control" rows="3" />
+                <ValidationMessage For="@(() => updateDto!.Address)" class="text-danger" />
+            }
+            else
+            {
+                <InputTextArea @bind-Value="createDto!.Address" class="form-control" rows="3" />
+                <ValidationMessage For="@(() => createDto!.Address)" class="text-danger" />
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Sampling Method *</label>
+                    @if (isUpdate)
+                    {
+                        <InputSelect @bind-Value="updateDto!.SamplingMethod" class="form-select">
+                            <option value="">-- Select Sampling Method --</option>
+                            <option value="Home Visit">Home Visit</option>
+                            <option value="Clinic Visit">Clinic Visit</option>
+                            <option value="Lab Collection">Lab Collection</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => updateDto!.SamplingMethod)" class="text-danger" />
+                    }
+                    else
+                    {
+                        <InputSelect @bind-Value="createDto!.SamplingMethod" class="form-select">
+                            <option value="">-- Select Sampling Method --</option>
+                            <option value="Home Visit">Home Visit</option>
+                            <option value="Clinic Visit">Clinic Visit</option>
+                            <option value="Lab Collection">Lab Collection</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => createDto!.SamplingMethod)" class="text-danger" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Payment Status</label>
+                    @if (isUpdate)
+                    {
+                        <InputSelect @bind-Value="updateDto!.IsPaid" class="form-select">
+                            <option value="">-- Select Status --</option>
+                            <option value="false">Unpaid</option>
+                            <option value="true">Paid</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => updateDto!.IsPaid)" class="text-danger" />
+                    }
+                    else
+                    {
+                        <InputSelect @bind-Value="createDto!.IsPaid" class="form-select">
+                            <option value="">-- Select Status --</option>
+                            <option value="false">Unpaid</option>
+                            <option value="true">Paid</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => createDto!.IsPaid)" class="text-danger" />
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Notes</label>
+            @if (isUpdate)
+            {
+                <InputTextArea @bind-Value="updateDto!.Notes" class="form-control" rows="4" />
+                <ValidationMessage For="@(() => updateDto!.Notes)" class="text-danger" />
+            }
+            else
+            {
+                <InputTextArea @bind-Value="createDto!.Notes" class="form-control" rows="4" />
+                <ValidationMessage For="@(() => createDto!.Notes)" class="text-danger" />
+            }
+        </div>
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isSubmitting) return;
+
+        isSubmitting = true;
+        errorMessage = null;
+        int result = 0;
+
+        try
+        {
+            // Parse time from helper
+            if (!TimeOnly.TryParse(appointmentTimeHelper, out var parsedTime))
+            {
+                errorMessage = "Please enter a valid time in HH:mm format (e.g., 14:30)";
+                return;
+            }
+
+            if (IsEditMode && updateAppointment != null)
+            {
+                updateAppointment.AppointmentTime = parsedTime;
+                result = await _graphQLConsumer.UpdateAppointmentDto(updateAppointment);
+            }
+            else if (!IsEditMode && createAppointment != null)
+            {
+                createAppointment.AppointmentTime = parsedTime;
+                result = await _graphQLConsumer.CreateAppointmentDto(createAppointment);
+            }
+
+            if (result > 0)
+            {
+                _navigationManager.NavigateTo("/appointments");
+            }
+            else
+            {
+                errorMessage = "Failed to save appointment. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving appointment: {ex.Message}";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+
+    private void Cancel()
+    {
+        _navigationManager.NavigateTo("/appointments");
+    }
+}
