@@ -1,32 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.blazorwas.graphqlclients.tiendm\\graphqlclient\\graphqlconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|solutionrelative:dnatestingsystem.blazorwas.graphqlclients.tiendm\\graphqlclient\\graphqlconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\query.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|solutionrelative:dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\query.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.graphqlapiservices.tiendm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|solutionrelative:dnatestingsystem.graphqlapiservices.tiendm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8835109D-26B7-43A4-8FC3-9BF1FAD8EC53}|DNATestingSystem.Services.TienDM\\DNATestingSystem.Services.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.services.tiendm\\serviceproviders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8835109D-26B7-43A4-8FC3-9BF1FAD8EC53}|DNATestingSystem.Services.TienDM\\DNATestingSystem.Services.TienDM.csproj|solutionrelative:dnatestingsystem.services.tiendm\\serviceproviders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\mutation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|solutionrelative:dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\mutation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\query-mutation-collection.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DC0D8A91-B561-4DD2-88E5-718A6DC60A18}|DNATestingSystem.GraphQLAPIServices.TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM.csproj|solutionrelative:dnatestingsystem.graphqlapiservices.tiendm\\graphqls\\query-mutation-collection.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -34,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -51,84 +26,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{e8b06f52-6d01-11d2-aa7d-00c04f990343}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ServiceProviders.cs",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
-              "RelativeDocumentMoniker": "DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
-              "RelativeToolTip": "DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T08:46:43.112Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Query.cs",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
-              "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
-              "RelativeToolTip": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJoAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T08:43:43.91Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Mutation.cs",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
-              "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
-              "RelativeToolTip": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAYwC0AAABcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T08:43:24.587Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Query-Mutation-Collection.txt",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query-Mutation-Collection.txt",
-              "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query-Mutation-Collection.txt",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query-Mutation-Collection.txt",
-              "RelativeToolTip": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query-Mutation-Collection.txt",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAIwA4AAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-06-22T08:23:15.339Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GraphQLConsumer.cs",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
-              "RelativeDocumentMoniker": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
-              "RelativeToolTip": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
-              "ViewState": "AQIAAM8AAAAAAAAAAAArwNYAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T08:11:27.768Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
-              "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
-              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
-              "RelativeToolTip": "DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAAAwAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T07:01:16.243Z",
-              "EditorCaption": ""
             }
           ]
         }

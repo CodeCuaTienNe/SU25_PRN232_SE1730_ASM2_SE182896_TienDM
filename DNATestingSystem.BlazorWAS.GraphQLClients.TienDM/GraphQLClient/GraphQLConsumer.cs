@@ -275,7 +275,6 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        // ...existing code...
     }
 
     // Response classes for GraphQL
