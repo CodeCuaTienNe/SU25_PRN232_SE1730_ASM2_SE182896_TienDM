@@ -207,6 +207,11 @@ else
         await LoadAppointment();
     }
 
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadAppointment();
+    }
+
     private async Task LoadAppointment()
     {
         isLoading = true;

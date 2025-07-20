@@ -101,7 +101,9 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
             }
         }
 
-
+        /// <summary>
+        /// Search appointments with pagination - returns display DTOs
+        /// </summary>
         public async Task<PaginationResult<List<AppointmentsTienDmDisplayDto>>> SearchAppointmentsDisplay(SearchAppointmentsTienDm searchRequest)
         {
             try
@@ -142,7 +144,10 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
             }
         }
 
-
+        //view useraccount
+        /// <summary>
+        /// Get all users for dropdown
+        /// </summary>
         public async Task<List<SystemUserAccount>> GetAllUsers()
         {
             try
@@ -156,6 +161,10 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
             }
         }
 
+        // view service
+        /// <summary>
+        /// Get all services for dropdown
+        /// </summary>
         public async Task<List<ServicesNhanVt>> GetAllServices()
         {
             try

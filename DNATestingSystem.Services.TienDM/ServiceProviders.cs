@@ -8,32 +8,31 @@ namespace DNATestingSystem.Services.TienDM
 {
     public class ServiceProviders : IServiceProviders
     {
-        private readonly DNATestingSystem.Repository.TienDM.IUnitOfWork _unitOfWork = new DNATestingSystem.Repository.TienDM.UnitOfWork();
-        private SystemUserAccountService? _systemUserAccountService;
-        private AppointmentsTienDmService? _appointmentsTienDmService;
-        private AppointmentStatusesTienDmService? _appointmentStatusesTienDmService;
-        private ServicesNhanVtService? _servicesNhanVtService;
+        private SystemUserAccountService _systemUserAccountService;
+        private AppointmentsTienDmService _appointmentsTienDmService;
+        private AppointmentStatusesTienDmService _appointmentStatusesTienDmService;
+        private ServicesNhanVtService _servicesNhanVtService;
 
         public ServiceProviders() { }
 
         public SystemUserAccountService SystemUserAccountService
         {
-            get { return _systemUserAccountService ??= new SystemUserAccountService(_unitOfWork); }
+            get { return _systemUserAccountService ??= new SystemUserAccountService(); }
         }
 
         public AppointmentsTienDmService AppointmentsTienDmService
         {
-            get { return _appointmentsTienDmService ??= new AppointmentsTienDmService(_unitOfWork); }
+            get { return _appointmentsTienDmService ??= new AppointmentsTienDmService(); }
         }
 
         public AppointmentStatusesTienDmService AppointmentStatusesTienDmService
         {
-            get { return _appointmentStatusesTienDmService ??= new AppointmentStatusesTienDmService(_unitOfWork); }
+            get { return _appointmentStatusesTienDmService ??= new AppointmentStatusesTienDmService(); }
         }
 
         public ServicesNhanVtService ServicesNhanVtService
         {
-            get { return _servicesNhanVtService ??= new ServicesNhanVtService(_unitOfWork); }
+            get { return _servicesNhanVtService ??= new ServicesNhanVtService(); }
         }
     }
 }

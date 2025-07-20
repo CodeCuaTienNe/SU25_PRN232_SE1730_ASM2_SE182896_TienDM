@@ -4,7 +4,6 @@
 @using DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
-@using static DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient.GraphQLConsumer
 @inject GraphQLConsumer _graphQLConsumer
 @inject NavigationManager _navigationManager
 
@@ -343,7 +342,7 @@ else if (appointmentDto != null)
 
             if (result > 0)
             {
-                _navigationManager.NavigateTo("/appointments", false);
+                _navigationManager.NavigateTo("/appointments");
             }
         }
         catch (Exception ex)

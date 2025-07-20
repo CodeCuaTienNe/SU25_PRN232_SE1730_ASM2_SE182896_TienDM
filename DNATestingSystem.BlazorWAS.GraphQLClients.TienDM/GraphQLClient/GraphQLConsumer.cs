@@ -9,9 +9,8 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
     {
         private readonly IGraphQLClient _graphQLClient;
 
-        public GraphQLConsumer(IGraphQLClient graphQLClient) => _graphQLClient = graphQLClient;        /// <summary>
-                                                                                                       /// Get all appointments using display DTOs - optimized for UI display
-                                                                                                       /// </summary>
+        public GraphQLConsumer(IGraphQLClient graphQLClient) => _graphQLClient = graphQLClient;
+
         public async Task<List<AppointmentsTienDmDisplayDto>> GetAllAppointmentsDisplay()
         {
             try
@@ -47,9 +46,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Get appointment by ID using display DTO
-        /// </summary>
+
         public async Task<AppointmentsTienDmDisplayDto> GetAppointmentDisplayById(int id)
         {
             try
@@ -92,9 +89,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Create appointment using DTO - simplified input
-        /// </summary>
+
         public async Task<int> CreateAppointmentDto(CreateAppointmentsTienDmDto appointmentDto)
         {
             try
@@ -118,16 +113,14 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Update appointment using DTO - simplified input
-        /// </summary>
+
         public async Task<int> UpdateAppointmentDto(UpdateAppointmentsTienDmDto appointmentDto)
         {
             try
             {
                 var graphQLRequest = new GraphQLRequest
                 {
-                    Query = @"mutation UpdateAppointment($appointmentDto: UpdateAppointmentsTienDmDtoInput!) {
+                    Query = @"mutation($appointmentDto: UpdateAppointmentsTienDmDtoInput!) {
                         updateAppointment(appointmentDto: $appointmentDto)
                     }",
                     Variables = new { appointmentDto = appointmentDto }
@@ -144,9 +137,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Delete appointment by ID
-        /// </summary>
+
         public async Task<bool> DeleteAppointment(int id)
         {
             try
@@ -170,9 +161,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Get all appointments (original method for backward compatibility)
-        /// </summary>
+
         public async Task<List<AppointmentsTienDm>> GetAllAppointments()
         {
             try
@@ -203,9 +192,9 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             {
                 return new List<AppointmentsTienDm>();
             }
-        }        /// <summary>
-                 /// Get all users for dropdown
-                 /// </summary>
+        }        
+
+
         public async Task<List<UserOption>> GetUserOptions()
         {
             try
@@ -227,9 +216,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Get all services for dropdown
-        /// </summary>
+
         public async Task<List<ServiceOption>> GetServiceOptions()
         {
             try
@@ -251,9 +238,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
-        /// <summary>
-        /// Get all appointment statuses for dropdown
-        /// </summary>
+
         public async Task<List<AppointmentStatusOption>> GetAppointmentStatusOptions()
         {
             try

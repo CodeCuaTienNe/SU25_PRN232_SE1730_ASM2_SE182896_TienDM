@@ -20,11 +20,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Add Service Layer Pattern - ServiceProviders
 builder.Services.AddScoped<IServiceProviders, ServiceProviders>();
 
-//// Add individual services (optional if using ServiceProviders)
-//builder.Services.AddScoped<SystemUserAccountService>();
-//builder.Services.AddScoped<AppointmentsTienDmService>();
-//builder.Services.AddScoped<AppointmentStatusesTienDmService>();
-//builder.Services.AddScoped<ServicesNhanVtService>();
+// Add individual services (optional if using ServiceProviders)
+builder.Services.AddScoped<SystemUserAccountService>();
+builder.Services.AddScoped<AppointmentsTienDmService>();
+builder.Services.AddScoped<AppointmentStatusesTienDmService>();
+builder.Services.AddScoped<ServicesNhanVtService>();
 
 // Add GraphQL Server with Query and Mutation types
 builder.Services.AddGraphQLServer()
