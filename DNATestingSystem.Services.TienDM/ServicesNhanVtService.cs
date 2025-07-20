@@ -10,44 +10,44 @@ namespace DNATestingSystem.Services.TienDM
 {
     public class ServicesNhanVtService : IServicesNhanVtService
     {
-        private readonly ServicesNhanVtRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ServicesNhanVtService()
-            => _repository = new ServicesNhanVtRepository();
+        public ServicesNhanVtService(IUnitOfWork unitOfWork)
+            => _unitOfWork = unitOfWork;
 
         public async Task<List<ServicesNhanVt>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _unitOfWork.ServicesNhanVtRepository.GetAllAsync();
         }
 
         public async Task<ServicesNhanVt> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            return await _unitOfWork.ServicesNhanVtRepository.GetByIdAsync(id);
         }
 
         public async Task<List<ServicesNhanVt>> GetActiveServicesAsync()
         {
-            return await _repository.GetActiveServicesAsync();
+            return await _unitOfWork.ServicesNhanVtRepository.GetActiveServicesAsync();
         }
 
         public async Task<List<ServicesNhanVt>> SearchAsync(int id, string serviceName)
         {
-            return await _repository.SearchAsync(id, serviceName ?? "");
+            return await _unitOfWork.ServicesNhanVtRepository.SearchAsync(id, serviceName ?? "");
         }
 
         public async Task<int> CreateAsync(ServicesNhanVt entity)
         {
-            return await _repository.CreateAsync(entity);
+            return await _unitOfWork.ServicesNhanVtRepository.CreateAsync(entity);
         }
 
         public async Task<int> UpdateAsync(ServicesNhanVt entity)
         {
-            return await _repository.UpdateAsync(entity);
+            return await _unitOfWork.ServicesNhanVtRepository.UpdateAsync(entity);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _unitOfWork.ServicesNhanVtRepository.DeleteAsync(id);
         }
     }
 }

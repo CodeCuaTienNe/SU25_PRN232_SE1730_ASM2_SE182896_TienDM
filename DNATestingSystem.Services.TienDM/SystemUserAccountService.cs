@@ -7,40 +7,47 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DNATestingSystem.Services.TienDM
-{    public class SystemUserAccountService : ISystemUserAccountService
+{
+    public class SystemUserAccountService : ISystemUserAccountService
     {
-        private readonly UserAccountRepository _repository;
-        public SystemUserAccountService()
-            => _repository = new UserAccountRepository();
-        
+        private readonly IUnitOfWork _unitOfWork;
+        public SystemUserAccountService(IUnitOfWork unitOfWork)
+            => _unitOfWork = unitOfWork;
+
+
         public Task<SystemUserAccount?> GetUserAccount(string userName, string password)
         {
-            return _repository.GetUserAccount(userName, password);
+            return _unitOfWork.UserAccountRepository.GetUserAccount(userName, password);
         }
+
 
         public Task<SystemUserAccount?> GetUserAccountById(int userId)
         {
-            return _repository.GetUserAccountById(userId);
+            return _unitOfWork.UserAccountRepository.GetUserAccountById(userId);
         }
+
 
         public async Task<List<SystemUserAccount>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _unitOfWork.UserAccountRepository.GetAllAsync();
         }
+
 
         public async Task<int> CreateAsync(SystemUserAccount userAccount)
         {
-            return await _repository.CreateAsync(userAccount);
+            return await _unitOfWork.UserAccountRepository.CreateAsync(userAccount);
         }
+
 
         public async Task<int> UpdateAsync(SystemUserAccount userAccount)
         {
-            return await _repository.UpdateAsync(userAccount);
+            return await _unitOfWork.UserAccountRepository.UpdateAsync(userAccount);
         }
+
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _unitOfWork.UserAccountRepository.DeleteAsync(id);
         }
     }
 }

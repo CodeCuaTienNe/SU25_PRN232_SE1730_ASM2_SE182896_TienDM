@@ -10,44 +10,44 @@ namespace DNATestingSystem.Services.TienDM
 {
     public class AppointmentStatusesTienDmService : IAppointmentStatusesTienDmService
     {
-        private readonly AppointmentStatusesTienDmRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AppointmentStatusesTienDmService()
-            => _repository = new AppointmentStatusesTienDmRepository();
+        public AppointmentStatusesTienDmService(IUnitOfWork unitOfWork)
+            => _unitOfWork = unitOfWork;
 
         public async Task<List<AppointmentStatusesTienDm>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.GetAllAsync();
         }
 
         public async Task<AppointmentStatusesTienDm> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.GetByIdAsync(id);
         }
 
         public async Task<List<AppointmentStatusesTienDm>> GetActiveStatusesAsync()
         {
-            return await _repository.GetActiveStatusesAsync();
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.GetActiveStatusesAsync();
         }
 
         public async Task<List<AppointmentStatusesTienDm>> SearchAsync(int id, string statusName)
         {
-            return await _repository.SearchAsync(id, statusName ?? "");
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.SearchAsync(id, statusName ?? "");
         }
 
         public async Task<int> CreateAsync(AppointmentStatusesTienDm entity)
         {
-            return await _repository.CreateAsync(entity);
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.CreateAsync(entity);
         }
 
         public async Task<int> UpdateAsync(AppointmentStatusesTienDm entity)
         {
-            return await _repository.UpdateAsync(entity);
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.UpdateAsync(entity);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _unitOfWork.AppointmentStatusesTienDmRepository.DeleteAsync(id);
         }
     }
 }
