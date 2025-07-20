@@ -25,8 +25,12 @@ namespace DNATestingSystem.Repository.TienDM
         {
             try
             {
-                // Try without includes first to isolate the issue
+                // Include related foreign key entities (example: Patient, Doctor, etc.)
                 var appointments = await _context.AppointmentsTienDms
+                    .Include(a => a.AppointmentStatusesTienDm)
+                    .Include(a => a.ServicesNhanVt)
+                    .Include(a => a.UserAccount)
+                    .Include(a => a.SampleThinhLcs)
                     .ToListAsync();
 
                 return appointments ?? new List<AppointmentsTienDm>();
@@ -43,8 +47,12 @@ namespace DNATestingSystem.Repository.TienDM
         {
             try
             {
-                // Try without includes first to isolate the issue
+                // Include related foreign key entities (example: Patient, Doctor, etc.)
                 var appointment = await _context.AppointmentsTienDms
+                    .Include(a => a.AppointmentStatusesTienDm)
+                    .Include(a => a.ServicesNhanVt)
+                    .Include(a => a.UserAccount)
+                    .Include(a => a.SampleThinhLcs)
                     .FirstOrDefaultAsync(a => a.AppointmentsTienDmid == id);
 
                 return appointment ?? new AppointmentsTienDm();

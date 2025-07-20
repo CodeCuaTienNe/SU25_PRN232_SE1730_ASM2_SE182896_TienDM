@@ -66,9 +66,9 @@ D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\ob
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.AssemblyInfoInputs.cache
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.AssemblyInfo.cs
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.csproj.CoreCompileInputs.cache
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.sourcelink.json
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.dll
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\refint\DNATestingSystem.Repository.TienDM.dll
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.pdb
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.genruntimeconfig.cache
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\ref\DNATestingSystem.Repository.TienDM.dll
-D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.Repository.TienDM\obj\Debug\net8.0\DNATestingSystem.Repository.TienDM.sourcelink.json
