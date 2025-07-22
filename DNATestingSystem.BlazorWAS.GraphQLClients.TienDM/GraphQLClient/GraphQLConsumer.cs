@@ -192,7 +192,7 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             {
                 return new List<AppointmentsTienDm>();
             }
-        }        
+        }
 
 
         public async Task<List<UserOption>> GetUserOptions()
@@ -260,6 +260,57 @@ namespace DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.GraphQLClient
             }
         }
 
+        // --- LOGIN MUTATION ---
+        public class LoginResult
+        {
+            public int UserAccountId { get; set; }
+            public string FullName { get; set; } = string.Empty;
+            public int RoleId { get; set; }
+        }
+
+        public async Task<LoginResult?> LoginAsync(string username, string password)
+        {
+            try
+            {
+                var graphQLRequest = new GraphQLRequest
+                {
+                    Query = @"mutation Login($username: String!, $password: String!) {
+                        login(username: $username, password: $password) {
+                            userAccountId
+                            fullName
+                            roleId
+                        }
+                    }",
+                    Variables = new { username, password }
+                };
+
+                Console.WriteLine($"[GraphQL Debug] Sending mutation with username: {username}");
+                Console.WriteLine($"[GraphQL Debug] Query: {graphQLRequest.Query}");
+                Console.WriteLine($"[GraphQL Debug] Variables: {System.Text.Json.JsonSerializer.Serialize(graphQLRequest.Variables)}");
+
+                var response = await _graphQLClient.SendMutationAsync<LoginGraphQLResponse>(graphQLRequest);
+
+                Console.WriteLine($"[GraphQL Debug] Response received: {response != null}");
+                Console.WriteLine($"[GraphQL Debug] Response data: {response?.Data != null}");
+                Console.WriteLine($"[GraphQL Debug] Login result: {response?.Data?.login != null}");
+
+                return response?.Data?.login;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[GraphQL Error] Exception in LoginAsync: {ex.Message}");
+                Console.WriteLine($"[GraphQL Error] Stack trace: {ex.StackTrace}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"[GraphQL Error] Inner exception: {ex.InnerException.Message}");
+                }
+                return null;
+            }
+        }
+        public class LoginGraphQLResponse
+        {
+            public LoginResult? login { get; set; }
+        }
     }
 
     // Response classes for GraphQL

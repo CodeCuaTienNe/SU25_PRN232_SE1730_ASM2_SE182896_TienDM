@@ -11,7 +11,17 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 //graphQL
-builder.Services.AddScoped<IGraphQLClient>(c => new GraphQLHttpClient(builder.Configuration["GraphQLURI"], new NewtonsoftJsonSerializer()));
+builder.Services.AddScoped<IGraphQLClient>(serviceProvider =>
+{
+    var httpClient = new HttpClient();
+    var graphQLEndpoint = builder.Configuration["GraphQLURI"] ?? "https://localhost:7286/graphql/";
+    var graphQLClient = new GraphQLHttpClient(graphQLEndpoint, new NewtonsoftJsonSerializer(), httpClient);
+
+    // Add default headers if needed
+    httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+
+    return graphQLClient;
+});
 builder.Services.AddScoped<GraphQLConsumer>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

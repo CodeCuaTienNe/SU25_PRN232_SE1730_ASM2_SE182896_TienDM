@@ -2,6 +2,13 @@ using DNATestingSystem.Repository.TienDM.Models;
 using DNATestingSystem.Repository.TienDM.ModelExtensions;
 using DNATestingSystem.Services.TienDM;
 
+public class LoginResult
+{
+    public int UserAccountId { get; set; }
+    public string FullName { get; set; } = string.Empty;
+    public int RoleId { get; set; }
+}
+
 namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
 {
     public class Mutation
@@ -42,17 +49,21 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
                     return 0;
                 }
 
-                // Get existing appointment
+                // Validate appointment exists before updating
                 var existingAppointment = await _serviceProviders.AppointmentsTienDmService.GetByIdAsync(appointmentDto.AppointmentsTienDmid);
                 if (existingAppointment == null || existingAppointment.AppointmentsTienDmid == 0)
                 {
                     return 0;
                 }
 
-                // Update entity with DTO data using mapper
-                existingAppointment.UpdateFromDto(appointmentDto);
+                var appointmentToUpdate = new AppointmentsTienDm
+                {
+                    AppointmentsTienDmid = appointmentDto.AppointmentsTienDmid
+                };
 
-                var result = await _serviceProviders.AppointmentsTienDmService.UpdateAsync(existingAppointment);
+                appointmentToUpdate.UpdateFromDto(appointmentDto);
+
+                var result = await _serviceProviders.AppointmentsTienDmService.UpdateAsync(appointmentToUpdate);
                 return result;
             }
             catch (Exception)
@@ -71,6 +82,31 @@ namespace DNATestingSystem.GraphQLAPIServices.TienDM.GraphQLs
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Login mutation: check username and password, return user info if valid, null if not
+        /// </summary>
+        public async Task<LoginResult?> Login(string username, string password)
+        {
+            try
+            {
+                var user = await _serviceProviders.SystemUserAccountService.GetUserAccount(username, password);
+                if (user != null)
+                {
+                    return new LoginResult
+                    {
+                        UserAccountId = user.UserAccountId,
+                        FullName = user.FullName,
+                        RoleId = user.RoleId
+                    };
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }
