@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.blazorwas.graphqlclients.tiendm\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|solutionrelative:dnatestingsystem.blazorwas.graphqlclients.tiendm\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|d:\\su25_prn232_se1730_asm2_se182896_tiendm\\dnatestingsystem.blazorwas.graphqlclients.tiendm\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{1AC9E904-BC8D-458E-AEBB-587F1F886695}|DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.csproj|solutionrelative:dnatestingsystem.blazorwas.graphqlclients.tiendm\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -99,6 +103,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Layout\\MainLayout.razor",
+              "ToolTip": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-22T07:00:03.219Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Login.razor",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Pages\\Login.razor",
               "RelativeDocumentMoniker": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Pages\\Login.razor",
@@ -111,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Weather.razor",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Pages\\Weather.razor",
               "RelativeDocumentMoniker": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\Pages\\Weather.razor",
@@ -123,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "AppointmentsTienDm.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Repository.TienDM\\Models\\AppointmentsTienDm.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Repository.TienDM\\Models\\AppointmentsTienDm.cs",
@@ -135,7 +152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\appsettings.json",
               "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\appsettings.json",
@@ -147,7 +164,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SE18_PRN232_SE1730_G3_DNATestingSystemContext.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Repository.TienDM\\DBContext\\SE18_PRN232_SE1730_G3_DNATestingSystemContext.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Repository.TienDM\\DBContext\\SE18_PRN232_SE1730_G3_DNATestingSystemContext.cs",
@@ -159,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AppointmentsTienDmRepository.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Repository.TienDM\\AppointmentsTienDmRepository.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Repository.TienDM\\AppointmentsTienDmRepository.cs",
@@ -171,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "GraphQLConsumer.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\\GraphQLClient\\GraphQLConsumer.cs",
@@ -183,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Query.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Query.cs",
@@ -195,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Mutation.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\GraphQLs\\Mutation.cs",
@@ -207,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\Program.cs",
@@ -219,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "WeatherForecast.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.GraphQLAPIServices.TienDM\\WeatherForecast.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.GraphQLAPIServices.TienDM\\WeatherForecast.cs",
@@ -231,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Repository.TienDM\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Repository.TienDM\\UnitOfWork.cs",
@@ -243,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ServicesNhanVtService.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\ServicesNhanVtService.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Services.TienDM\\ServicesNhanVtService.cs",
@@ -255,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ServiceProviders.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Services.TienDM\\ServiceProviders.cs",
@@ -267,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "IServiceProviders.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\IServiceProviders.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Services.TienDM\\IServiceProviders.cs",
@@ -279,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "IAppointmentsTienDmService.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Services.TienDM\\IAppointmentsTienDmService.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Services.TienDM\\IAppointmentsTienDmService.cs",
@@ -291,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "D:\\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\\DNATestingSystem.Repository.TienDM\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "DNATestingSystem.Repository.TienDM\\IUnitOfWork.cs",

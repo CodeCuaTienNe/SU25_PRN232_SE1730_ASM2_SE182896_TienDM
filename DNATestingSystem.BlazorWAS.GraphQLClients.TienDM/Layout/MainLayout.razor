@@ -5,9 +5,21 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
+
+        <div class="top-row px-4" style="display: flex; justify-content: space-between; align-items: center;">
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <button class="btn btn-link" @onclick="Logout" style="color: #6366f1; font-weight: 600;">Logout</button>
         </div>
+@code {
+    [Inject] private NavigationManager Navigation { get; set; }
+    [Inject] private IJSRuntime JS { get; set; }
+
+    private async Task Logout()
+    {
+        await JS.InvokeVoidAsync("localStorage.removeItem", "user");
+        Navigation.NavigateTo("/login", true);
+    }
+}
 
         <article class="content px-4">
             @Body

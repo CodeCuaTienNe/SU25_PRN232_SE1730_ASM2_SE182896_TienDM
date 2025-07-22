@@ -4316,9 +4316,6 @@ D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLCli
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\kqbmss6nwr-tptq2av103.gz
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\zfiogfgaqs-lfu7j35m59.gz
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\f6ow92deru-oyz0vx2fzb.gz
-D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\gdke6fi57m-631fkdovrf.gz
-D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\k3dn2aa2xg-jrgtzmcaz6.gz
-D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\q8wpx0wxxe-jb7fzkehxp.gz
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\staticwebassets.build.json
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\staticwebassets.build.json.cache
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\staticwebassets.development.json
@@ -4329,3 +4326,6 @@ D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLCli
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.pdb
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\ref\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.dll
 D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\gdke6fi57m-6iuwy67udb.gz
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\k3dn2aa2xg-sja2bfqva3.gz
+D:\SU25_PRN232_SE1730_ASM2_SE182896_TienDM\DNATestingSystem.BlazorWAS.GraphQLClients.TienDM\obj\Debug\net8.0\compressed\q8wpx0wxxe-ka2da2jt9k.gz
