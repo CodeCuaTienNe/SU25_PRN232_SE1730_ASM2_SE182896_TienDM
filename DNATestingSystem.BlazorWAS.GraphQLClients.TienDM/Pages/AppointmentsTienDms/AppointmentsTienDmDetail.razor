@@ -4,6 +4,21 @@
 @inject GraphQLConsumer _graphQLConsumer
 @inject NavigationManager _navigationManager
 @inject IJSRuntime JSRuntime
+@inject DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Services.AuthService AuthService
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await AuthService.GetCurrentUserAsync();
+        if (user == null)
+        {
+            _navigationManager.NavigateTo("/login", true);
+            return;
+        }
+        // ...existing code...
+        await LoadAppointment();
+    }
+}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3>Appointment Details</h3>
@@ -202,10 +217,6 @@ else
     private AppointmentsTienDmDisplayDto? appointment;
     private bool isLoading = true;
 
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadAppointment();
-    }
 
     protected override async Task OnParametersSetAsync()
     {

@@ -6,6 +6,25 @@
 @using System.ComponentModel.DataAnnotations
 @inject GraphQLConsumer _graphQLConsumer
 @inject NavigationManager _navigationManager
+@inject DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Services.AuthService AuthService
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await AuthService.GetCurrentUserAsync();
+        if (user == null)
+        {
+            _navigationManager.NavigateTo("/login", true);
+            return;
+        }
+        if (user.Role != 1 && user.Role != 2)
+        {
+            _navigationManager.NavigateTo("/unauthorized", true);
+            return;
+        }
+    }
+}
 
 <h3>@(IsEditMode ? "Edit Appointment" : "Create New Appointment")</h3>
 
@@ -189,11 +208,7 @@ else if (appointmentDto != null)
     private List<ServiceOption>? serviceOptions;
     private List<AppointmentStatusOption>? appointmentStatusOptions;
 
-    private bool IsEditMode => Id.HasValue && Id > 0;    protected override async Task OnInitializedAsync()
-    {
-        await LoadDropdownData();
-        await LoadAppointment();
-    }
+    private bool IsEditMode => Id.HasValue && Id > 0;
 
     private async Task LoadDropdownData()
     {

@@ -24,6 +24,9 @@ builder.Services.AddScoped<IGraphQLClient>(serviceProvider =>
 });
 builder.Services.AddScoped<GraphQLConsumer>();
 
+
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+// Đăng ký AuthService
+builder.Services.AddScoped<DNATestingSystem.BlazorWAS.GraphQLClients.TienDM.Services.AuthService>();
 
 await builder.Build().RunAsync();
